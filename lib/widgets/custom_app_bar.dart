@@ -10,44 +10,44 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      backgroundColor: Colors.black,
-      elevation: 0,
-      leading:
-          isHome
-              ? SvgPicture.asset(
-                'assets/imgs/Menu.svg',
-                colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
-              )
-              : SvgPicture.asset(
-                'assets/imgs/Menu.svg',
-                colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcIn),
-              ),
-      centerTitle: true,
-      title: SvgPicture.asset(
-        "assets/imgs/Logo.svg",
-        colorFilter: ColorFilter.mode(
-          isHome ? Colors.white : Colors.black,
-          BlendMode.srcIn,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: AppBar(
+        backgroundColor: Color.fromARGB(255, 0, 0, 0),
+        elevation: 0,
+        leading:
+            isHome
+                ? SvgPicture.asset(
+                  'assets/imgs/Menu.svg',
+                  colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                )
+                : SvgPicture.asset(
+                  'assets/imgs/Menu.svg',
+                  colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcIn),
+                ),
+        centerTitle: true,
+        title: Image.asset(
+          "assets/imgs/Logo.png",
+          color: isHome ? Colors.white : Colors.black,
         ),
+        actions: [
+          SvgPicture.asset(
+            "assets/imgs/Search.svg",
+            colorFilter: ColorFilter.mode(
+              isHome ? Colors.white : Colors.black,
+              BlendMode.srcIn,
+            ),
+          ),
+          Gap(30),
+          SvgPicture.asset(
+            "assets/imgs/shopping bag.svg",
+            colorFilter: ColorFilter.mode(
+              isHome ? Colors.white : Colors.black,
+              BlendMode.srcIn,
+            ),
+          ),
+        ],
       ),
-      actions: [
-        SvgPicture.asset(
-          "assets/imgs/Search.svg",
-          colorFilter: ColorFilter.mode(
-            isHome ? Colors.white : Colors.black,
-            BlendMode.srcIn,
-          ),
-        ),
-        Gap(30),
-        SvgPicture.asset(
-          "assets/imgs/shopping bag.svg",
-          colorFilter: ColorFilter.mode(
-            isHome ? Colors.white : Colors.black,
-            BlendMode.srcIn,
-          ),
-        ),
-      ],
     );
   }
 }

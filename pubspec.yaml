@@ -64,7 +64,10 @@ flutter:
     - family: BodoniModa
       fonts:
         - asset: assets/fonts/BodoniModa-VariableFont_opsz,wght.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
+    - family: BodoniModa
+      fonts:
+        - asset: assets/fonts/static/BodoniModa_28pt-Black.ttf
+
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:
