@@ -33,6 +33,7 @@ dependencies:
     sdk: flutter
   flutter_svg: ^2.0.10
   gap: ^3.0.1
+  ionicons: ^0.2.2
 
 dev_dependencies:
   flutter_lints: ^5.0.0
@@ -67,6 +68,10 @@ flutter:
     - family: BodoniModa
       fonts:
         - asset: assets/fonts/static/BodoniModa_28pt-Black.ttf
+    - family: Tenor Sans
+      fonts:
+        - asset: assets/fonts/static/TenorSans-Regular.ttf
+    
 
   #         style: italic
   #   - family: Trajan Pro
