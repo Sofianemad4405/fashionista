@@ -1,14 +1,9 @@
+import 'package:fashionista/models/you_may_also_like_item_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class YouMayAlsoLikeItem extends StatelessWidget {
-  const YouMayAlsoLikeItem({
-    super.key,
-    required this.image,
-    required this.name,
-  });
-  final String image;
-  final String name;
+  const YouMayAlsoLikeItem({super.key, required this.youMayAlsoLikeItemModel});
+  final YouMayAlsoLikeItemModel youMayAlsoLikeItemModel;
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +12,12 @@ class YouMayAlsoLikeItem extends StatelessWidget {
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(4),
-          child: Image.asset(image, fit: BoxFit.cover),
+          child: Image.asset(youMayAlsoLikeItemModel.image, fit: BoxFit.cover),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 4.0),
           child: Text(
-            name.toUpperCase(),
+            youMayAlsoLikeItemModel.name.toUpperCase(),
             style: TextStyle(
               color: Colors.white,
               fontFamily: "Tenor Sans",
