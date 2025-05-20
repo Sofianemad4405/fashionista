@@ -1,6 +1,10 @@
 import 'package:fashionista/models/product_model.dart';
 import 'package:fashionista/widgets/custom_app_bar.dart';
+import 'package:fashionista/widgets/custom_button.dart';
+import 'package:fashionista/widgets/custom_line.dart';
 import 'package:fashionista/widgets/custom_text.dart';
+import 'package:fashionista/widgets/header.dart';
+import 'package:fashionista/widgets/product_checkout_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
@@ -15,119 +19,137 @@ class ProductDetails extends StatefulWidget {
 
 class _ProductDetailsState extends State<ProductDetails> {
   int count = 1;
+  bool isEditing = false;
+  final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CustomAppBar(isHome: false),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          children: [
-            Gap(30),
-            //checkout & 12
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CustomText(
-                  text: "Checkout",
-                  size: 24,
-                  color: Colors.black,
-                  letterSpacing: 4,
-                  isUpper: true,
-                ),
-              ],
-            ),
-            SvgPicture.asset(
-              "assets/imgs/12.svg",
-              width: 20,
-              height: 15,
-              colorFilter: ColorFilter.mode(Color(0xff555555), BlendMode.srcIn),
-            ),
-
-            //details row
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Form(
+              key: formKey,
+              child: Column(
                 children: [
-                  //product image
-                  Image.asset(widget.product.image, height: 150),
-                  Gap(10),
-                  //title & description&count
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Gap(10),
-                      CustomText(
-                        text: widget.product.name,
-                        size: 24,
-                        color: Colors.black,
-                        letterSpacing: 4,
-                      ),
-                      CustomText(
-                        text: widget.product.description,
-                        size: 12,
-                        color: Color.fromARGB(255, 9, 9, 9),
-                        letterSpacing: 0,
-                      ),
-                    ],
+                  Gap(30),
+                  Header(text: "Checkout"),
+                  CustomLine(),
+                  Gap(20),
+                  ProductCheckoutCard(
+                    count: count,
+                    product: widget.product,
+                    onPlusTap: () {
+                      setState(() {
+                        count++;
+                      });
+                    },
+                    onminusTap: () {
+                      if (count > 1) {
+                        setState(() {
+                          count--;
+                        });
+                      }
+                    },
                   ),
+                  Gap(20),
+                  Divider(),
+                  Gap(15),
+                  promo(text: "Add promo code", image: "promo1.svg"),
+                  Gap(20),
+                  Divider(),
+                  Gap(15),
+                  promo(text: "Delivery", image: "promo2.svg"),
+                  Gap(20),
+                  Divider(),
                 ],
               ),
             ),
-            Gap(20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          ),
+          Spacer(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
               children: [
-                Container(
-                  height: 30,
-                  width: 30,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(color: Colors.black26),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: SvgPicture.asset(
-                      "assets/imgs/minus.svg",
-                      colorFilter: ColorFilter.mode(
-                        Colors.black26,
-                        BlendMode.srcIn,
-                      ),
-                    ),
-                  ),
+                CustomText(
+                  text: "Est. Total",
+                  size: 20,
+                  color: Colors.black,
+                  letterSpacing: 3,
                 ),
-                Text(count.toString()),
-                Container(
-                  height: 30,
-                  width: 30,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(color: Colors.black26),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: SvgPicture.asset(
-                      "assets/imgs/minus.svg",
-                      colorFilter: ColorFilter.mode(
-                        Colors.black26,
-                        BlendMode.srcIn,
-                      ),
-                    ),
-                  ),
+                Spacer(),
+                CustomText(
+                  text: "\$${widget.product.price * count}",
+                  size: 24,
+                  color: Color(0xffDD8560),
+                  letterSpacing: 3,
                 ),
               ],
             ),
-
-            Container(
-              color: const Color.fromARGB(255, 62, 62, 62),
-              height: 0.7,
-              width: double.infinity,
-            ),
-          ],
-        ),
+          ),
+          Gap(30),
+          CustomButton(
+            image: "assets/imgs/shopping bag.svg",
+            text: "Checkout",
+            onTap: () {
+              if (formKey.currentState!.validate()) {
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text("Checkout")));
+              }
+            },
+          ),
+        ],
       ),
     );
   }
+}
+
+Widget ctr(ontap, sign) {
+  return GestureDetector(
+    onTap: ontap,
+    child: Container(
+      width: 30,
+      height: 30,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(color: Colors.black),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: SvgPicture.asset(sign),
+      ),
+    ),
+  );
+}
+
+Widget promo({required String text, required String image}) {
+  return Row(
+    children: [
+      SvgPicture.asset(
+        "assets/imgs/$image",
+        width: text != "Delivery" ? 25 : 32,
+        height: text != "Delivery" ? 25 : 32,
+      ),
+      Gap(text != "Delivery" ? 10 : 18),
+      CustomText(
+        text: text,
+        size: 16,
+        color: Color.fromARGB(255, 9, 9, 9),
+        letterSpacing: 0,
+      ),
+      Spacer(),
+      text == "Delivery"
+          ? CustomText(
+            text: "Free",
+            size: 16,
+            color: Colors.black,
+            letterSpacing: 0,
+          )
+          : Container(),
+      Gap(25),
+    ],
+  );
 }
