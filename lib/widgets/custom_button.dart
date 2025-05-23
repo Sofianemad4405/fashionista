@@ -4,13 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
 class CustomButton extends StatelessWidget {
-  const CustomButton({
-    super.key,
-    required this.image,
-    required this.text,
-    this.onTap,
-  });
-  final String image;
+  const CustomButton({super.key, this.image, required this.text, this.onTap});
+  final String? image;
   final String text;
   final void Function()? onTap;
 
@@ -25,10 +20,12 @@ class CustomButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset(
-              image,
-              colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
-            ),
+            image != null
+                ? SvgPicture.asset(
+                  image!,
+                  colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                )
+                : SizedBox.shrink(),
             Gap(20),
             CustomText(
               text: text,

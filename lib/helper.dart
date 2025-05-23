@@ -1,6 +1,5 @@
 import 'package:fashionista/models/product_model.dart';
 import 'package:fashionista/models/you_may_also_like_item_model.dart';
-import 'package:fashionista/widgets/you_may_also_like_item.dart';
 
 class Helper {
   static List<Product> products = [
@@ -12,10 +11,10 @@ class Helper {
       price: 120,
     ),
     Product(
-      description: "leatherette and cashmere",
+      description: "Kosom elbdan",
       image: "assets/imgs/Rectangle 344 (1).png",
       isLiked: false,
-      name: "October collection",
+      name: "Etbdnt Neek",
       price: 100,
     ),
     Product(

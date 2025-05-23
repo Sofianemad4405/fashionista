@@ -1,4 +1,5 @@
 import 'package:fashionista/models/product_model.dart';
+import 'package:fashionista/pages/Place_order.dart';
 import 'package:fashionista/widgets/custom_app_bar.dart';
 import 'package:fashionista/widgets/custom_button.dart';
 import 'package:fashionista/widgets/custom_line.dart';
@@ -32,39 +33,41 @@ class _ProductDetailsState extends State<ProductDetails> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Form(
               key: formKey,
-              child: Column(
-                children: [
-                  Gap(30),
-                  Header(text: "Checkout"),
-                  CustomLine(),
-                  Gap(20),
-                  ProductCheckoutCard(
-                    count: count,
-                    product: widget.product,
-                    onPlusTap: () {
-                      setState(() {
-                        count++;
-                      });
-                    },
-                    onminusTap: () {
-                      if (count > 1) {
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Gap(30),
+                    Header(text: "CheckOut"),
+                    CustomLine(),
+                    Gap(20),
+                    ProductCheckoutCard(
+                      count: count,
+                      product: widget.product,
+                      onPlusTap: () {
                         setState(() {
-                          count--;
+                          count++;
                         });
-                      }
-                    },
-                  ),
-                  Gap(20),
-                  Divider(),
-                  Gap(15),
-                  promo(text: "Add promo code", image: "promo1.svg"),
-                  Gap(20),
-                  Divider(),
-                  Gap(15),
-                  promo(text: "Delivery", image: "promo2.svg"),
-                  Gap(20),
-                  Divider(),
-                ],
+                      },
+                      onminusTap: () {
+                        if (count > 1) {
+                          setState(() {
+                            count--;
+                          });
+                        }
+                      },
+                    ),
+                    Gap(20),
+                    Divider(),
+                    Gap(15),
+                    promo(text: "Add promo code", image: "promo1.svg"),
+                    Gap(20),
+                    Divider(),
+                    Gap(15),
+                    promo(text: "Delivery", image: "promo2.svg"),
+                    Gap(20),
+                    Divider(),
+                  ],
+                ),
               ),
             ),
           ),
@@ -95,9 +98,18 @@ class _ProductDetailsState extends State<ProductDetails> {
             text: "Checkout",
             onTap: () {
               if (formKey.currentState!.validate()) {
-                ScaffoldMessenger.of(
+                Navigator.push(
                   context,
-                ).showSnackBar(SnackBar(content: Text("Checkout")));
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return PlaceOrder(
+                        count: count,
+                        totalPrice: widget.product.price * count,
+                        product: widget.product,
+                      );
+                    },
+                  ),
+                );
               }
             },
           ),

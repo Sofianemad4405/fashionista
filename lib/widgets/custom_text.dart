@@ -9,13 +9,17 @@ class CustomText extends StatelessWidget {
     required this.color,
     required this.letterSpacing,
     this.wordSpacing = 0,
+    this.weight = FontWeight.w400,
+    this.maxlines = 1,
   });
   final bool isUpper;
   final String text;
   final double size;
   final double letterSpacing;
   final double wordSpacing;
+  final FontWeight? weight;
   final Color color;
+  final int? maxlines;
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +28,13 @@ class CustomText extends StatelessWidget {
       style: TextStyle(
         letterSpacing: letterSpacing,
         fontSize: size,
-        fontWeight: FontWeight.w400,
+        fontWeight: weight,
         fontFamily: "Tenor Sans",
         color: color,
         wordSpacing: wordSpacing,
       ),
       overflow: TextOverflow.ellipsis,
+      maxLines: maxlines,
     );
   }
 }

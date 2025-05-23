@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CustomLine extends StatelessWidget {
-  const CustomLine({super.key});
+  const CustomLine({super.key, this.width = 20, this.length = 15});
+  final int width;
+  final int length;
 
   @override
   Widget build(BuildContext context) {
